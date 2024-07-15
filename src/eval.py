@@ -14,7 +14,7 @@ if __name__ == '__main__':
     gens, refs, gen_ref_dict = defaultdict(list), defaultdict(list), defaultdict(list)
     path_to_simple = 'results/mBlip_simple_prompt.tsv'
     path_to_context = 'results/mBlip_context_prompt.tsv'
-    path_to_transl = 'results/mBlip_context_prompt.tsv'
+    path_to_transl = 'results/mBlip_transl_context_prompt.tsv'
 
     df_simple = pd.read_csv(path_to_simple, sep='\t')
     df_context = pd.read_csv(path_to_context, sep='\t')
