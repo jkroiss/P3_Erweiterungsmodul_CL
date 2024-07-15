@@ -17,18 +17,24 @@ if __name__ == '__main__':
         gen_ref_dict[key].append(refs[key])
 
     #Apply and save bertscore for each langauge
-    bertscore = evaluate.load('bertscore')
-    df_bertscore = pd.DataFrame(columns=['lang','prec', 'rec', 'f1'])
+    #bertscore = evaluate.load('bertscore')
+    #df_bertscore = pd.DataFrame(columns=['lang','prec', 'rec', 'f1'])
+    df_rouge = pd.DataFrame(columns=['lang','rouge1', 'rouge2', 'rougeL', 'rougeLsum'])
+    rouge = evaluate.load('rouge')
     i = 0
     for lang in gen_ref_dict:
         pred = gen_ref_dict[lang][0]
         ref = gen_ref_dict[lang][1]
-        output = bertscore.compute(predictions=pred, references = ref, lang=lang)
-        p, r, f1 = output['precision'], output['recall'], output['f1']
-        df_bertscore.loc[i] = [lang, sum(p)/len(p), sum(r)/len(r), sum(f1)/len(f1)]
-        i += 1
+        output = rouge.compute(predictions=pred, references=ref)
+        df_rouge.loc[i] = [lang, output['rouge1'], output['rouge2'],output['rougeL'], output['rougeLsum']]
 
-    df_bertscore.to_csv('results/bertscore.tsv', sep='\t')
+
+    #    bs_output = bertscore.compute(predictions=pred, references = ref, lang=lang)
+    #    p, r, f1 = bs_output['precision'], bs_output['recall'], bs_output['f1']
+    #    df_bertscore.loc[i] = [lang, sum(p)/len(p), sum(r)/len(r), sum(f1)/len(f1)]
+        i += 1
+    df_rouge.to_csv('results/rouge.tsv', sep='\t')
+    #df_bertscore.to_csv('results/bertscore.tsv', sep='\t')
 
 
 
