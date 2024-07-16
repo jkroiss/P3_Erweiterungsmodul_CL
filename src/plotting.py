@@ -27,4 +27,10 @@ if __name__ == '__main__':
              c_context_path, c_simple_path, c_transl_path, m_context_path, m_simple_path, m_transl_path,
              r_context_path, r_simple_path, r_transl_path]
 
-    dfs = [pd.read_csv(path, sep='\t') for path in paths]
+    dfs = []
+    for path in paths:
+        style = path.split('_')[1].split('.')[0]
+        df = pd.read_csv(path, sep='\t')
+        df.assign(Prompt= [style for i in range(len(df.index))])
+        dfs.append(df)
+    print(dfs[0])
