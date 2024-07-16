@@ -4,7 +4,7 @@ from IPython.display import display
 import evaluate
 import pandas as pd
 from collections import defaultdict
-#from cidereval import cider
+from cidereval import cider
 from pycocoevalcap.cider.cider import Cider
 from bleurt import score
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     df_rouge = pd.DataFrame(columns=['lang', 'rouge1', 'rouge2', 'rougeL', 'rougeLsum'])
     df_bleu = pd.DataFrame(columns=['lang', 'bleu', 'precisions'])
     df_meteor = pd.DataFrame(columns=['lang', 'meteor'])
-    #df_cider = pd.DataFrame(columns=['lang', 'avg_score', 'scores'])
+    df_cider = pd.DataFrame(columns=['lang', 'avg_score'])
     df_bertscore = pd.DataFrame(columns=['lang','prec', 'rec', 'f1'])
 
     # Load metrics
@@ -54,8 +54,8 @@ if __name__ == '__main__':
         m_output = meteor.compute(predictions=pred, references=ref)
         df_meteor.loc[i] = [lang, m_output['meteor']]
 
-        #c_output = cider(predictions=pred, references=ref)
-        #df_cider.loc[i] = [lang, c_output['avg_score'], c_output['scores']]
+        c_output = cider(predictions=pred, references=ref)
+        df_cider.loc[i] = [lang, c_output['avg_score']]
 
         bs_output = bertscore.compute(predictions=pred, references = ref, lang=lang)
         p, r, f1 = bs_output['precision'], bs_output['recall'], bs_output['f1']
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     df_rouge.to_csv('results/rouge_simple.tsv', sep='\t')
     df_bleu.to_csv('results/bleu_simple.tsv', sep='\t')
     df_meteor.to_csv('results/meteor_simple.tsv', sep='\t')
-    #df_cider.to_csv('results/cider_simple.tsv', sep='\t')
+    df_cider.to_csv('results/cider_simple.tsv', sep='\t')
     df_bertscore.to_csv('results/bertscore_simple.tsv', sep='\t')
 
     gens, refs, gen_ref_dict = defaultdict(list), defaultdict(list), defaultdict(list)
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     df_rouge = pd.DataFrame(columns=['lang', 'rouge1', 'rouge2', 'rougeL', 'rougeLsum'])
     df_bleu = pd.DataFrame(columns=['lang', 'bleu', 'precisions'])
     df_meteor = pd.DataFrame(columns=['lang', 'meteor'])
-    #df_cider = pd.DataFrame(columns=['lang', 'avg_score', 'scores'])
+    df_cider = pd.DataFrame(columns=['lang', 'avg_score'])
     df_bertscore = pd.DataFrame(columns=['lang', 'prec', 'rec', 'f1'])
 
     i = 0
@@ -100,8 +100,8 @@ if __name__ == '__main__':
         m_output = meteor.compute(predictions=pred, references=ref)
         df_meteor.loc[i] = [lang, m_output['meteor']]
 
-        #c_output = cider(predictions=pred, references=ref)
-        #df_cider.loc[i] = [lang, c_output['avg_score'], c_output['scores']]
+        c_output = cider(predictions=pred, references=ref)
+        df_cider.loc[i] = [lang, c_output['avg_score']]
 
         bs_output = bertscore.compute(predictions=pred, references=ref, lang=lang)
         p, r, f1 = bs_output['precision'], bs_output['recall'], bs_output['f1']
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     df_rouge.to_csv('results/rouge_context.tsv', sep='\t')
     df_bleu.to_csv('results/bleu_context.tsv', sep='\t')
     df_meteor.to_csv('results/meteor_context.tsv', sep='\t')
-    #df_cider.to_csv('results/cider_context.tsv', sep='\t')
+    df_cider.to_csv('results/cider_context.tsv', sep='\t')
     df_bertscore.to_csv('results/bertscore_context.tsv', sep='\t')
 
     gens, refs, gen_ref_dict = defaultdict(list), defaultdict(list), defaultdict(list)
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     df_rouge = pd.DataFrame(columns=['lang', 'rouge1', 'rouge2', 'rougeL', 'rougeLsum'])
     df_bleu = pd.DataFrame(columns=['lang', 'bleu', 'precisions'])
     df_meteor = pd.DataFrame(columns=['lang', 'meteor'])
-    #df_cider = pd.DataFrame(columns=['lang', 'avg_score', 'scores'])
+    df_cider = pd.DataFrame(columns=['lang', 'avg_score'])
     df_bertscore = pd.DataFrame(columns=['lang', 'prec', 'rec', 'f1'])
 
     i = 0
@@ -144,8 +144,8 @@ if __name__ == '__main__':
         m_output = meteor.compute(predictions=pred, references=ref)
         df_meteor.loc[i] = [lang, m_output['meteor']]
 
-        #c_output = cider(predictions=pred, references=ref)
-        #df_cider.loc[i] = [lang, c_output['avg_score'], c_output['scores']]
+        c_output = cider(predictions=pred, references=ref)
+        df_cider.loc[i] = [lang, c_output['avg_score']]
 
         bs_output = bertscore.compute(predictions=pred, references=ref, lang=lang)
         p, r, f1 = bs_output['precision'], bs_output['recall'], bs_output['f1']
@@ -156,7 +156,7 @@ if __name__ == '__main__':
     df_rouge.to_csv('results/rouge_transl.tsv', sep='\t')
     df_bleu.to_csv('results/bleu_transl.tsv', sep='\t')
     df_meteor.to_csv('results/meteor_transl.tsv', sep='\t')
-    #df_cider.to_csv('results/cider_transl.tsv', sep='\t')
+    df_cider.to_csv('results/cider_transl.tsv', sep='\t')
     df_bertscore.to_csv('results/bertscore_transl.tsv', sep='\t')
 
 
