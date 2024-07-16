@@ -48,8 +48,31 @@ if __name__ == '__main__':
     concat_frames['rouge'].drop(columns=['rouge1', 'rouge2', 'rougeLsum'], inplace=True)
     concat_frames['rouge'].drop(index=0, inplace=True)
 
+    fig = px.scatter(concat_frames['bertscore'], x='lang', y='f1', color='Prompt').update_traces(mode='lines+markers')
+    fig.update_traces(marker_size=15)
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
+    fig.show()
 
     fig = px.scatter(concat_frames['bleu'], x='lang', y='bleu', color='Prompt').update_traces(mode='lines+markers')
+    fig.update_traces(marker_size=15)
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
+    fig.show()
+
+    fig = px.scatter(concat_frames['cider'], x='lang', y='avg_score', color='Prompt').update_traces(mode='lines+markers')
+    fig.update_traces(marker_size=15)
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
+    fig.show()
+
+    fig = px.scatter(concat_frames['meteor'], x='lang', y='meteor', color='Prompt').update_traces(mode='lines+markers')
+    fig.update_traces(marker_size=15)
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
+    fig.show()
+
+    fig = px.scatter(concat_frames['rouge'], x='lang', y='rougeL', color='Prompt').update_traces(mode='lines+markers')
     fig.update_traces(marker_size=15)
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black', mirror=True)
